@@ -272,15 +272,62 @@
       let wordIndex = 0;
       let letterIndex = 0;
       let deleting = false;
+      let timerId = null;
+      let isPaused = false;
+      let isHeroVisible = true;
+      const smallScreenQuery = window.matchMedia('(max-width: 768px)');
+
+      const clearTick = () => {
+        if (timerId) {
+          window.clearTimeout(timerId);
+          timerId = null;
+        }
+      };
+
+      const queueTick = (delay) => {
+        clearTick();
+        timerId = window.setTimeout(tick, delay);
+      };
+
+      const pauseRotation = () => {
+        isPaused = true;
+        clearTick();
+      };
+
+      const resumeRotation = () => {
+        if (!isPaused) {
+          return;
+        }
+
+        isPaused = false;
+        queueTick(deleting ? 45 : 78);
+      };
+
+      const syncRotationState = () => {
+        if (!smallScreenQuery.matches) {
+          resumeRotation();
+          return;
+        }
+
+        if (isHeroVisible || document.activeElement === target) {
+          resumeRotation();
+        } else {
+          pauseRotation();
+        }
+      };
 
       const tick = () => {
+        if (isPaused) {
+          return;
+        }
+
         const activeWord = words[wordIndex];
         letterIndex += deleting ? -1 : 1;
         target.textContent = activeWord.slice(0, letterIndex);
 
         if (!deleting && letterIndex === activeWord.length) {
           deleting = true;
-          setTimeout(tick, 1200);
+          queueTick(1200);
           return;
         }
 
@@ -289,10 +336,34 @@
           wordIndex = (wordIndex + 1) % words.length;
         }
 
-        setTimeout(tick, deleting ? 45 : 78);
+        queueTick(deleting ? 45 : 78);
       };
 
+      if (smallScreenQuery.matches && !target.hasAttribute('tabindex')) {
+        target.setAttribute('tabindex', '0');
+      }
+
+      const heroSection = target.closest('.hero');
+      if (heroSection && window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            isHeroVisible = entry.isIntersecting;
+            syncRotationState();
+          });
+        }, { threshold: 0.15 });
+
+        observer.observe(heroSection);
+      }
+
+      target.addEventListener('focus', () => {
+        isHeroVisible = true;
+        resumeRotation();
+      });
+
+      smallScreenQuery.addEventListener('change', syncRotationState);
+
       tick();
+      syncRotationState();
     });
   };
 
