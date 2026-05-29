@@ -526,6 +526,29 @@ main section {
   height: 22px;
 }
 
+/* About page mission/vision/core values icons */
+.mv-card {
+  padding-top: 18px;
+}
+
+.mv-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 12px;
+  color: #9cefff;
+  border: 1px solid rgba(24, 214, 255, 0.36);
+  background: linear-gradient(160deg, rgba(24, 214, 255, 0.14), rgba(4,18,40,0.02));
+  box-shadow: 0 8px 18px rgba(2, 20, 48, 0.28);
+}
+
+.mv-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
 .counter {
   text-align: center;
   padding: 26px 12px;
