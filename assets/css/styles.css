@@ -475,6 +475,57 @@ main section {
   margin-bottom: 12px;
 }
 
+.services-overview-section .service-overview-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(24, 214, 255, 0.45);
+  background: rgba(24, 214, 255, 0.16);
+  color: #ddf9ff;
+  font-weight: 600;
+  line-height: 1;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.services-overview-section .service-overview-link::after {
+  content: '\2192';
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.services-overview-section .service-overview-link:hover,
+.services-overview-section .service-overview-link:focus-visible {
+  background: rgba(24, 214, 255, 0.26);
+  border-color: rgba(24, 214, 255, 0.7);
+  transform: translateY(-1px);
+}
+
+.why-choose-card {
+  position: relative;
+  padding-top: 18px;
+}
+
+.why-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-grid;
+  place-items: center;
+  margin-bottom: 12px;
+  color: #9cefff;
+  border: 1px solid rgba(24, 214, 255, 0.4);
+  background: linear-gradient(160deg, rgba(24, 214, 255, 0.2), rgba(21, 112, 239, 0.14));
+  box-shadow: 0 10px 20px rgba(2, 20, 48, 0.35);
+}
+
+.why-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
 .counter {
   text-align: center;
   padding: 26px 12px;
@@ -966,12 +1017,48 @@ textarea {
 
 /* Reduce rotating words size on smaller screens to improve readability */
 @media (max-width: 600px) {
+  .navbar {
+    min-height: 72px;
+    gap: 10px;
+  }
+
+  .brand {
+    gap: 10px;
+    flex: 1;
+  }
+
+  .brand img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .brand-title {
+    font-size: 0.94rem;
+    line-height: 1.06;
+    font-weight: 700;
+  }
+
+  .brand-title small {
+    margin-top: 2px;
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+    color: #89a8d9;
+  }
+
   .hero h1 .rotating-words {
     font-size: 0.95em;
   }
 }
 
 @media (max-width: 420px) {
+  .brand-title {
+    font-size: 0.9rem;
+  }
+
+  .brand-title small {
+    font-size: 0.62rem;
+  }
+
   .hero h1 {
     font-size: clamp(1.6rem, 5.2vw, 2.2rem);
   }
