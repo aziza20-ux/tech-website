@@ -17,6 +17,20 @@
     });
   };
 
+  const setupHeaderScrollState = () => {
+    const header = document.querySelector('.site-header');
+    if (!header) {
+      return;
+    }
+
+    const updateHeader = () => {
+      header.classList.toggle('scrolled', window.scrollY > 8);
+    };
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+  };
+
   const setupMobileNav = () => {
     const toggle = document.querySelector('[data-mobile-toggle]');
     const menu = document.querySelector('[data-nav-menu]');
@@ -369,6 +383,7 @@
 
   onReady(() => {
     showPreloader();
+    setupHeaderScrollState();
     setupMobileNav();
     setupMegaMenu();
     setupReveal();
