@@ -38,6 +38,13 @@
       return;
     }
 
+    // Ensure aria-controls points to the menu
+    if (!toggle.hasAttribute('aria-controls')) {
+      const id = menu.id || `nav-menu-${Math.random().toString(36).slice(2,8)}`;
+      menu.id = id;
+      toggle.setAttribute('aria-controls', id);
+    }
+
     const cta = document.querySelector('.nav-cta');
     const ctaDesktopParent = cta ? cta.parentElement : null;
     const ctaDesktopNext = cta ? cta.nextElementSibling : null;
@@ -69,6 +76,15 @@
     toggle.addEventListener('click', () => {
       const open = menu.classList.toggle('open');
       toggle.setAttribute('aria-expanded', String(open));
+      menu.setAttribute('aria-hidden', String(!open));
+    });
+
+    // Keyboard support: Enter and Space open/close
+    toggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle.click();
+      }
     });
 
     menu.addEventListener('click', (event) => {
@@ -88,6 +104,13 @@
       return;
     }
 
+    // Ensure aria-controls for the mega menu
+    if (!trigger.hasAttribute('aria-controls')) {
+      const id = menu.id || `mega-menu-${Math.random().toString(36).slice(2,8)}`;
+      menu.id = id;
+      trigger.setAttribute('aria-controls', id);
+    }
+
     const toggleMenu = () => {
       const isOpen = menu.classList.toggle('open');
       trigger.setAttribute('aria-expanded', String(isOpen));
@@ -96,6 +119,14 @@
     trigger.addEventListener('click', (event) => {
       event.stopPropagation();
       toggleMenu();
+    });
+
+    // Keyboard support for mega menu trigger
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMenu();
+      }
     });
 
     document.addEventListener('click', (event) => {
@@ -245,6 +276,178 @@
     });
   };
 
+  const setupHeroCarousel = () => {
+    document.querySelectorAll('[data-hero-carousel]').forEach((carousel) => {
+      const track = carousel.querySelector('.hero-carousel-track');
+      const prev = carousel.querySelector('[data-hero-prev]');
+      const next = carousel.querySelector('[data-hero-next]');
+      const dotsContainer = carousel.querySelector('[data-hero-dots]');
+
+      if (!track || !prev || !next) {
+        return;
+      }
+
+      const slides = Array.from(track.children);
+      if (slides.length < 2) {
+        return;
+      }
+
+      let index = 0;
+      let timerId = null;
+      let touchStartX = 0;
+      let isTouching = false;
+      let isDragging = false;
+      const dots = [];
+
+      const setActiveDot = () => {
+        if (!dots.length) {
+          return;
+        }
+
+        dots.forEach((dot, dotIndex) => {
+          const active = dotIndex === index;
+          dot.classList.toggle('active', active);
+          dot.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+      };
+
+      const update = () => {
+        slides.forEach((slide, slideIndex) => {
+          slide.classList.toggle('active', slideIndex === index);
+        });
+        setActiveDot();
+      };
+
+      const clearTimer = () => {
+        if (timerId) {
+          window.clearInterval(timerId);
+          timerId = null;
+        }
+      };
+
+      const startTimer = () => {
+        clearTimer();
+        timerId = window.setInterval(() => {
+          index = (index + 1) % slides.length;
+          update();
+        }, 5000);
+      };
+
+      const goToPrevious = () => {
+        index = (index - 1 + slides.length) % slides.length;
+        update();
+        startTimer();
+      };
+
+      const goToNext = () => {
+        index = (index + 1) % slides.length;
+        update();
+        startTimer();
+      };
+
+      if (dotsContainer) {
+        slides.forEach((_, dotIndex) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'hero-carousel-dot';
+          dot.setAttribute('aria-label', `Go to hero slide ${dotIndex + 1}`);
+          dot.addEventListener('click', () => {
+            index = dotIndex;
+            update();
+            startTimer();
+          });
+          dotsContainer.appendChild(dot);
+          dots.push(dot);
+        });
+      }
+
+      prev.addEventListener('click', () => {
+        goToPrevious();
+      });
+
+      next.addEventListener('click', () => {
+        goToNext();
+      });
+
+      track.addEventListener('touchstart', (event) => {
+        if (event.touches.length !== 1) {
+          return;
+        }
+
+        isTouching = true;
+        touchStartX = event.touches[0].clientX;
+      }, { passive: true });
+
+      track.addEventListener('touchend', (event) => {
+        if (!isTouching) {
+          return;
+        }
+
+        isTouching = false;
+
+        const touch = event.changedTouches[0];
+        if (!touch) {
+          return;
+        }
+
+        const deltaX = touch.clientX - touchStartX;
+        if (Math.abs(deltaX) < 50) {
+          return;
+        }
+
+        if (deltaX < 0) {
+          goToNext();
+        } else {
+          goToPrevious();
+        }
+      });
+
+      track.addEventListener('mousedown', (event) => {
+        isDragging = true;
+        touchStartX = event.clientX;
+      });
+
+      track.addEventListener('mouseup', (event) => {
+        if (!isDragging) {
+          return;
+        }
+
+        const deltaX = event.clientX - touchStartX;
+        if (Math.abs(deltaX) > 50) {
+          if (deltaX < 0) {
+            goToNext();
+          } else {
+            goToPrevious();
+          }
+        }
+
+        isDragging = false;
+      });
+
+      track.addEventListener('mouseleave', () => {
+        isDragging = false;
+      });
+
+      if (window.IntersectionObserver) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              startTimer();
+            } else {
+              clearTimer();
+            }
+          });
+        }, { threshold: 0.35 });
+
+        observer.observe(carousel);
+      } else {
+        startTimer();
+      }
+
+      update();
+    });
+  };
+
   const setupForms = () => {
     document.querySelectorAll('[data-validate-form]').forEach((form) => {
       form.addEventListener('submit', (event) => {
@@ -289,7 +492,6 @@
       let timerId = null;
       let isPaused = false;
       let isHeroVisible = true;
-      const smallScreenQuery = window.matchMedia('(max-width: 768px)');
 
       const clearTick = () => {
         if (timerId) {
@@ -318,11 +520,6 @@
       };
 
       const syncRotationState = () => {
-        if (!smallScreenQuery.matches) {
-          resumeRotation();
-          return;
-        }
-
         if (isHeroVisible || document.activeElement === target) {
           resumeRotation();
         } else {
@@ -353,10 +550,6 @@
         queueTick(deleting ? 45 : 78);
       };
 
-      if (smallScreenQuery.matches && !target.hasAttribute('tabindex')) {
-        target.setAttribute('tabindex', '0');
-      }
-
       const heroSection = target.closest('.hero');
       if (heroSection && window.IntersectionObserver) {
         const observer = new IntersectionObserver((entries) => {
@@ -374,8 +567,6 @@
         resumeRotation();
       });
 
-      smallScreenQuery.addEventListener('change', syncRotationState);
-
       tick();
       syncRotationState();
     });
@@ -392,6 +583,7 @@
     setupPortfolioFilter();
     setupSearch();
     setupSlider();
+    setupHeroCarousel();
     setupForms();
     setupRotatingText();
   });
