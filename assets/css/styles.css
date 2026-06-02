@@ -565,7 +565,7 @@ button, .btn, .nav-link { min-height: 44px; }
 }
 
 .btn-primary {
-  background: var(--color-primary);
+  background: rgba(51, 134, 186, 0.98);
   color: #fff;
   box-shadow: 0 14px 28px rgba(0, 87, 217, 0.18);
 }
@@ -1452,7 +1452,8 @@ textarea {
   margin-top: 42px;
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   padding: 40px 0 20px;
-  background: var(--color-footer);
+  background: rgba(51, 134, 186, 0.98);
+  /* var(--color-footer); */
   color: #fff;
 }
 
