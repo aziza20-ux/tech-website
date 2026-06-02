@@ -1216,6 +1216,11 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero) {
   object-fit: cover;
 }
 
+.hero-carousel-slide--fit img {
+  object-fit: contain;
+  background: #f0f6ff;
+}
+
 .hero-carousel-control {
   position: absolute;
   top: 50%;
