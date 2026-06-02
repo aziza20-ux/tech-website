@@ -270,7 +270,7 @@ button, .btn, .nav-link { min-height: 44px; }
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(14px);
-  background: rgba(0, 87, 217, 0.18);
+  background: rgba(227, 226, 225, 0.98);
   border-bottom: 1px solid transparent;
   transition: box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
 }
@@ -503,19 +503,18 @@ button, .btn, .nav-link { min-height: 44px; }
 }
 
 .hero h1 {
-  color: #fff;
+  color: #0057D9;
 }
 
 .hero p {
-  color: rgba(255, 255, 255, 0.9);
+  color: #0f4f9f;
   font-size: 1.02rem;
   max-width: 64ch;
 }
 
 .rotating-words {
-  color: #00a3ff;
-  text-shadow: 0 2px 10px rgba(0, 87, 217, 0.38), 0 0 2px rgba(255, 255, 255, 0.28);
-  border-right: 2px solid #00a3ff;
+  color: #0077e6;
+  border-right: 2px solid #0077e6;
   padding-right: 5px;
   white-space: nowrap;
   animation: caretPulse 0.9s steps(1) infinite;
