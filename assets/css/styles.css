@@ -270,7 +270,7 @@ button, .btn, .nav-link { min-height: 44px; }
   top: 0;
   z-index: 1000;
   backdrop-filter: blur(14px);
-  background: rgba(248, 248, 249, 0.98);
+  background: rgba(0, 87, 217, 0.18);
   border-bottom: 1px solid transparent;
   transition: box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
 }
