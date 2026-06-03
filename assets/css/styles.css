@@ -1271,6 +1271,7 @@ main > section:nth-of-type(even):not(.hero):not(.page-hero) {
   display: flex;
   gap: 8px;
   z-index: 1;
+  visibility: hidden;
 }
 
 .hero-carousel-dot {
