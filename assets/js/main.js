@@ -448,9 +448,116 @@
     });
   };
 
+  const EMAILJS_CONFIG = {
+    serviceId: 'service_qt66bbp',
+    companyTemplateId: 'template_96rsnfj',
+    autoReplyTemplateId: 'template_wqa6k5t',
+    publicKey: 'WwI5nYrI5ZDYRPm4i'
+  };
+
+  const initEmailJS = () => {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: EMAILJS_CONFIG.publicKey });
+    }
+  };
+
+  const sendEmail = (templateId, params) => {
+    if (typeof emailjs === 'undefined') {
+      return Promise.reject(new Error('EmailJS SDK not loaded.'));
+    }
+    // Explicitly pass the public key as the 4th argument to bypass scoping/initialization issues
+    return emailjs.send(EMAILJS_CONFIG.serviceId, templateId, params, EMAILJS_CONFIG.publicKey);
+  };
+
+  const normalizeFormData = (form) => {
+    const formData = new FormData(form);
+    const data = {};
+    for (const [key, value] of formData.entries()) {
+      data[key] = value.trim();
+    }
+
+    const isQuoteForm = !!form.querySelector('[name="service"]');
+
+    return {
+      from_name: data['full-name'] || '',
+      from_phone: data['phone'] || '',
+      from_email: data['email'] || '',
+      details: data['details'] || '',
+      company: data['company'] || 'N/A',
+      service: data['service'] || 'N/A',
+      location: data['location'] || 'N/A',
+      contact_method: data['contact-method'] || 'N/A',
+      form_type: isQuoteForm ? 'Request a Quote Form' : 'General Contact Form',
+      submitted_at: new Date().toLocaleString(),
+      
+      // Variable aliases to prevent 422 errors due to template-field configuration differences
+      email: data['email'] || '',
+      to_email: data['email'] || '',
+      name: data['full-name'] || '',
+      to_name: data['full-name'] || '',
+      message: data['details'] || ''
+    };
+  };
+
+  const showFormStatus = (form, type, message) => {
+    let statusEl = form.querySelector('.form-status-msg');
+    if (!statusEl) {
+      statusEl = document.createElement('div');
+      statusEl.className = 'form-status-msg';
+      const submitBtnGroup = form.querySelector('.form-group.full:last-of-type') || form.querySelector('button[type="submit"]').parentElement;
+      if (submitBtnGroup) {
+        submitBtnGroup.appendChild(statusEl);
+      } else {
+        form.appendChild(statusEl);
+      }
+    }
+    
+    statusEl.textContent = message;
+    statusEl.style.marginTop = '15px';
+    statusEl.style.padding = '12px 16px';
+    statusEl.style.borderRadius = '8px';
+    statusEl.style.fontSize = '0.95rem';
+    statusEl.style.fontWeight = '600';
+    statusEl.style.textAlign = 'center';
+    
+    if (type === 'success') {
+      statusEl.style.backgroundColor = '#d1e7dd';
+      statusEl.style.color = '#0f5132';
+      statusEl.style.border = '1px solid #badbcc';
+    } else if (type === 'error') {
+      statusEl.style.backgroundColor = '#f8d7da';
+      statusEl.style.color = '#842029';
+      statusEl.style.border = '1px solid #f5c2c7';
+    } else if (type === 'loading') {
+      statusEl.style.backgroundColor = '#cff4fc';
+      statusEl.style.color = '#055160';
+      statusEl.style.border = '1px solid #b6effb';
+    }
+  };
+
+  const setSubmitButtonState = (form, isLoading) => {
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (!submitBtn) return;
+    
+    if (isLoading) {
+      submitBtn.disabled = true;
+      submitBtn.dataset.originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+    } else {
+      submitBtn.disabled = false;
+      if (submitBtn.dataset.originalText) {
+        submitBtn.textContent = submitBtn.dataset.originalText;
+      }
+    }
+  };
+
   const setupForms = () => {
+    initEmailJS();
+
     document.querySelectorAll('[data-validate-form]').forEach((form) => {
-      form.addEventListener('submit', (event) => {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
         let valid = true;
         form.querySelectorAll('[data-required]').forEach((field) => {
           const message = field.closest('.form-group')?.querySelector('.error-msg');
@@ -469,7 +576,39 @@
         });
 
         if (!valid) {
-          event.preventDefault();
+          return;
+        }
+
+        setSubmitButtonState(form, true);
+        showFormStatus(form, 'loading', 'Sending your request...');
+
+        const normalizedData = normalizeFormData(form);
+
+        try {
+          await Promise.all([
+            sendEmail(EMAILJS_CONFIG.companyTemplateId, normalizedData),
+            sendEmail(EMAILJS_CONFIG.autoReplyTemplateId, {
+              to_name: normalizedData.from_name,
+              from_name: normalizedData.from_name,
+              name: normalizedData.from_name,
+              to_email: normalizedData.from_email,
+              from_email: normalizedData.from_email,
+              email: normalizedData.from_email,
+              form_type: normalizedData.form_type
+            })
+          ]);
+
+          showFormStatus(form, 'success', 'Thank you! Your request has been sent successfully.');
+          form.reset();
+        } catch (error) {
+          console.error('EmailJS submission error:', error);
+          if (error && typeof error === 'object') {
+            console.error('EmailJS Error Status:', error.status);
+            console.error('EmailJS Error Message:', error.text);
+          }
+          showFormStatus(form, 'error', 'Something went wrong. Please try again later or contact us directly.');
+        } finally {
+          setSubmitButtonState(form, false);
         }
       });
     });
