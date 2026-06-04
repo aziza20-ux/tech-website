@@ -307,12 +307,12 @@ button, .btn, .nav-link { min-height: 44px; }
   font-family: 'Space Grotesk', sans-serif;
   font-size: 1rem;
   line-height: 1.2;
-  color: var(--color-text);
+  color: #FFFFFF
 }
 
 .brand-title small {
   display: block;
-  color: var(--color-text-muted);
+  color: #D6EFFF;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -339,7 +339,7 @@ button, .btn, .nav-link { min-height: 44px; }
 .nav-link:hover,
 .mega-trigger:hover,
 .nav-link[aria-current='page'] {
-  color: var(--color-primary);
+  color:#D6EFFF;
 }
 
 .nav-link::after,
@@ -550,12 +550,6 @@ button, .btn, .nav-link { min-height: 44px; }
   flex-wrap: wrap;
 }
 
-
-  /* margin-top: 24px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-} */
 
 .btn {
   border: 0;
@@ -1491,6 +1485,10 @@ textarea {
 .site-footer a:hover,
 .site-footer a:focus-visible {
   color: #fff;
+}
+
+.site-footer h4,h3{
+  color: #bce2fa
 }
 
 .footer-bottom {
