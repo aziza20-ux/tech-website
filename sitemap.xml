@@ -1,15 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://1000hills.rw/</loc></url>
-  <url><loc>https://1000hills.rw/about/</loc></url>
-  <url><loc>https://1000hills.rw/services/</loc></url>
-  <url><loc>https://1000hills.rw/services/cctv-installation/</loc></url>
-  <url><loc>https://1000hills.rw/services/fire-fighting-systems/</loc></url>
-  <url><loc>https://1000hills.rw/services/routers-switches/</loc></url>
-  <url><loc>https://1000hills.rw/services/laptops-it-equipment/</loc></url>
-  <url><loc>https://1000hills.rw/services/network-infrastructure/</loc></url>
-  <url><loc>https://1000hills.rw/portfolio/</loc></url>
-  <url><loc>https://1000hills.rw/testimonials/</loc></url>
-  <url><loc>https://1000hills.rw/contact/</loc></url>
-  <url><loc>https://1000hills.rw/request-quote/</loc></url>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/</loc>
+  <lastmod>2026-06-03T13:00:24+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/about/</loc>
+  <lastmod>2026-06-04T09:13:30+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/cctv-installation/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/routers-switches/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/laptops-it-equipment/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/network-infrastructure/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/services/</loc>
+  <lastmod>2026-06-04T09:13:31+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/portfolio/</loc>
+  <lastmod>2026-06-04T09:13:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/testimonials/</loc>
+  <lastmod>2026-06-04T09:13:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/contact/</loc>
+  <lastmod>2026-06-04T09:13:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.1000hillsgeneralsupply.com/request-quote/</loc>
+  <lastmod>2026-06-04T09:13:32+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
 </urlset>

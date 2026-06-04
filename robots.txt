@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://1000hills.rw/sitemap.xml
+Sitemap: https://www.1000hillsgeneralsupply.com/sitemap.xml
