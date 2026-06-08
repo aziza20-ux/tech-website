@@ -449,10 +449,10 @@
   };
 
   const EMAILJS_CONFIG = {
-    serviceId: 'service_qt66bbp',
-    companyTemplateId: 'template_96rsnfj',
-    autoReplyTemplateId: 'template_wqa6k5t',
-    publicKey: 'WwI5nYrI5ZDYRPm4i'
+    serviceId: 'service_0juqxls',
+    companyTemplateId: 'template_1whcbdi',
+    autoReplyTemplateId: 'template_7cm441i',
+    publicKey: 'nzwBvj3F9aAM-nl-Z'
   };
 
   const initEmailJS = () => {
