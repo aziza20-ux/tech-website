@@ -21,25 +21,86 @@
     {
       "@context": "https://schema.org",
       "@graph": [
-        {
-          "@type": "WebPage",
-          "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#webpage",
-          "url": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/",
-          "name": "Fire Fighting Systems Rwanda | Fire Alarm Installation Kigali",
-          "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.1000hillsgeneralsupply.com/"},
-              {"@type": "ListItem", "position": 2, "name": "Services", "item": "https://www.1000hillsgeneralsupply.com/services/"},
-              {"@type": "ListItem", "position": 3, "name": "Fire Fighting Systems", "item": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/"}
-            ]
+      {
+      "@type": "WebPage",
+      "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#webpage",
+      "url": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/",
+      "name": "Fire Fighting Systems Rwanda | Fire Alarm Installation Kigali",
+      "mainEntity": {
+      "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#service"
+      },
+      "breadcrumb": {
+      "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#breadcrumb"
+      }
+      },
+
+      ```
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#breadcrumb",
+        "name": "Breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.1000hillsgeneralsupply.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Services",
+            "item": "https://www.1000hillsgeneralsupply.com/services/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Fire Fighting Systems",
+            "item": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/"
           }
+        ]
+      },
+
+      {
+        "@type": "Organization",
+        "@id": "https://www.1000hillsgeneralsupply.com/#organization",
+        "name": "1000Hills General Supply Ltd",
+        "url": "https://www.1000hillsgeneralsupply.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.1000hillsgeneralsupply.com/logo.png"
+        }
+      },
+
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://www.1000hillsgeneralsupply.com/#localbusiness",
+        "name": "1000Hills General Supply Ltd",
+        "url": "https://www.1000hillsgeneralsupply.com",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Rwanda"
+        }
+      },
+
+      {
+        "@type": "Service",
+        "@id": "https://www.1000hillsgeneralsupply.com/services/fire-fighting-systems/#service",
+        "name": "Fire Fighting Systems Rwanda",
+        "serviceType": "Fire alarm and fire suppression installation",
+        "provider": {
+          "@id": "https://www.1000hillsgeneralsupply.com/#organization"
         },
-        {"@type": "Organization", "name": "1000Hills General Supply Ltd", "url": "https://www.1000hillsgeneralsupply.com"},
-        {"@type": "LocalBusiness", "name": "1000Hills General Supply Ltd", "areaServed": "Rwanda"},
-        {"@type": "Service", "name": "Fire Fighting Systems Rwanda", "serviceType": "Fire alarm and fire suppression installation", "provider": {"@type": "Organization", "name": "1000Hills General Supply Ltd"}, "areaServed": "Kigali, Rwanda"}
+        "areaServed": {
+          "@type": "Country",
+          "name": "Rwanda"
+        }
+      }
+      ```
+
       ]
     }
+
   </script>
 </head>
 <body>
